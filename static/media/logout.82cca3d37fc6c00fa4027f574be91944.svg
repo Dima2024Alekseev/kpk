@@ -1,0 +1,16 @@
+<svg width="34.000000" height="34.000000" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip65_139">
+			<rect id="10132175_logout_line_icon" width="34.000000" height="34.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#clip65_139)">
+		<path id="path" d="M21.23 3.27L21.25 3.25C21.81 3.25 22.25 3.68 22.25 4.25C22.25 4.81 21.81 5.25 21.25 5.25L21.23 5.22L21.23 3.27ZM21.23 28.77L21.25 28.75C21.81 28.75 22.25 29.18 22.25 29.75C22.25 30.31 21.81 30.75 21.25 30.75L21.23 30.73L21.23 28.77Z" fill="#000000" fill-opacity="0" fill-rule="nonzero"/>
+		<path id="path" d="M21.25 4.25L9.91 4.25C8.35 4.25 7.08 5.51 7.08 7.08L7.08 26.91C7.08 28.48 8.35 29.75 9.91 29.75L21.25 29.75" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="2.000000" stroke-linejoin="round" stroke-linecap="round"/>
+		<path id="path" d="M20.57 12.04L20.54 12.04C20.14 11.64 20.14 11.02 20.54 10.62C20.93 10.23 21.56 10.23 21.95 10.62L21.95 10.65L20.57 12.04ZM21.95 23.34L21.95 23.37C21.56 23.76 20.93 23.76 20.54 23.37C20.14 22.97 20.14 22.35 20.54 21.95L20.57 21.95L21.95 23.34ZM12.77 17.98L12.75 18C12.18 18 11.75 17.55 11.75 17C11.75 16.43 12.18 16 12.75 16L12.77 16.02L12.77 17.98Z" fill="#000000" fill-opacity="0" fill-rule="nonzero"/>
+		<path id="path" d="M21.25 22.66L26.91 17L21.25 11.33M26.91 17L12.75 17" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="2.000000" stroke-linejoin="round" stroke-linecap="round"/>
+	</g>
+</svg>
