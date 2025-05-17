@@ -485,17 +485,24 @@ const Students = () => {
                 <tbody id="table-body">
                   {currentStudents.length > 0 ? (
                     currentStudents.map((student) => (
-                      <tr key={student._id} className="student-row">
-                        <td className="student-cell" onClick={() => handleStudentClick(student)}>
+                      <tr
+                        key={student._id}
+                        className="student-row"
+                        onClick={() => handleStudentClick(student)}
+                      >
+                        <td className="student-cell">
                           {student.lastName} {student.firstName} {student.middleName}
                         </td>
                         <td className="student-cell center">{student.group?.name}</td>
                         <td className="student-cell center">{student.specialty?.name}</td>
                         <td className="student-cell center">{student.studentId}</td>
-                        <td className="actions">
+                        <td className="actions" onClick={(e) => e.stopPropagation()}>
                           <button
                             className="icon-btn"
-                            onClick={() => handleEditStudent(student)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleEditStudent(student);
+                            }}
                             title="Редактировать"
                           >
                             <img src={edit} alt="Редактировать" className="action-icon" />

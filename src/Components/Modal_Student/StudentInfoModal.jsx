@@ -1,45 +1,40 @@
 import React from "react";
 
-const StudentInfoModal = ({ isOpen, onClose, onEdit, onActivity }) => {
-  if (!isOpen) return null;
+const StudentInfoModal = ({ isOpen, onClose, onEdit, student, onActivity }) => {
+    if (!isOpen || !student) return null;
 
-  return (
-    <div className="student-info-modal-overlay">
-      <div className="student-info-modal-content">
-        <h2>Информация о студенте</h2>
-        <div className="student-info-form">
-          <div className="student-info-form-group">
-            <label>ФИО</label>
-            <p id="modal-initials"></p>
-          </div>
-          <div className="student-info-form-group">
-            <label>Группа</label>
-            <p id="modal-group"></p>
-          </div>
-          <div className="student-info-form-group">
-            <label>Номер студенческого билета</label>
-            <p id="modal-ticket"></p>
-          </div>
-          <div className="student-info-form-group">
-            <label>Специальность</label>
-            <p id="modal-specialty"></p>
-          </div>
+    return (
+        <div className="modal-overlay">
+            <div className="modal-content">
+                <h2>Информация о студенте</h2>
+                <div className="student-info">
+                    <p>
+                        <strong>ФИО:</strong> {student.lastName} {student.firstName} {student.middleName}
+                    </p>
+                    <p>
+                        <strong>Группа:</strong> {student.group?.name || "Не указана"}
+                    </p>
+                    <p>
+                        <strong>Номер студ. билета:</strong> {student.studentId || "Не указан"}
+                    </p>
+                    <p>
+                        <strong>Специальность:</strong> {student.specialty?.name || "Не указана"}
+                    </p>
+                </div>
+                <div className="modal-buttons">
+                    {/* <button className="activity-btn" onClick={onActivity}>
+                        Активность
+                    </button> */}
+                    <button className="save-btn" onClick={onEdit}>
+                        Редактировать
+                    </button>
+                    <button className="close-btn" onClick={onClose}>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <div className="student-info-modal-buttons">
-          <button className="edit-btn" onClick={onEdit}>
-            Изменить
-          </button>
-          <button className="activity-btn" onClick={onActivity}>
-            Активность
-          </button>
-          <button className="close-btn" onClick={onClose}>
-            Закрыть
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default StudentInfoModal;
