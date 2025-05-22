@@ -131,6 +131,10 @@ body {
     width: calc(100% - 20px);
 }
 
+input {
+    color: #0066CB;
+}
+
 .search-input {
     width: 100%;
     font-size: 16px;

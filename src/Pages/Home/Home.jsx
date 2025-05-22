@@ -10,8 +10,6 @@ import concert from "../../img/online_concert_interaction.svg";
 import events from "../../img/calendar_event_star.svg";
 import china from "../../img/china_flag_icon.svg";
 import bell from "../../img/bell-icon.svg";
-import user_icon from "../../img/user-icon.svg";
-import chevron from "../../img/chevron-down.svg";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { EventsContext } from "../../Components/EventsContext";
 import ViewModal from "../../Components/Calendar/ViewModal";
@@ -342,10 +340,10 @@ const Home = () => {
                 />
                 <NotificationsDropdown />
               </div>
-              <div className="home-page-content-right-side-header-item">
+              {/* <div className="home-page-content-right-side-header-item">
                   <img src={user_icon} alt="" />
                 <img src={chevron} alt="" />
-              </div>
+              </div> */}
             </div>
 
             <div className="home-page-cards-container">

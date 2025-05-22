@@ -73,14 +73,14 @@ const ExcelExporter = {
             ).join('\n');
 
             const newRow = worksheet.addRow([
-                student.lastName || '',
-                student.firstName || '',
-                student.middleName || '',
-                student.group?.name || '',
-                student.specialty?.name || '',
-                student.studentId || '',
+                student.lastName || 'Нет данных',
+                student.firstName || 'Нет данных',
+                student.middleName || 'Нет данных',
+                student.group?.name || 'Нет данных',
+                student.specialty?.name || 'Нет данных',
+                student.studentId || 'Нет данных',
                 studentEvents.length,
-                eventsString
+                eventsString || 'Нет данных'
             ]);
 
             const LastNameStudentsCell = newRow.getCell('A');
@@ -233,12 +233,12 @@ const ExcelExporter = {
             ).join('\n');
 
             const newRow = worksheet.addRow([
-                teacher.lastName || '',
-                teacher.firstName || '',
-                teacher.middleName || '',
-                teacher.department?.name || '',
+                teacher.lastName || 'Нет данных',
+                teacher.firstName || 'Нет данных',
+                teacher.middleName || 'Нет данных',
+                teacher.department?.name || 'Нет данных',
                 teacherEvents.length, // Количество мероприятий
-                eventsString // Список мероприятий
+                eventsString || 'Нет данных' // Список мероприятий
             ]);
 
             const LastnameTeachersCell = newRow.getCell('A');
@@ -333,12 +333,12 @@ const ExcelExporter = {
 
         // Данные студента
         const studentDataRow = worksheet.addRow([
-            student.lastName || '',
-            student.firstName || '',
-            student.middleName || '',
-            student.group?.name || '',
-            student.specialty?.name || '',
-            student.studentId || '',
+            student.lastName || 'Нет данных',
+            student.firstName || 'Нет данных',
+            student.middleName || 'Нет данных',
+            student.group?.name || 'Нет данных',
+            student.specialty?.name || 'Нет данных',
+            student.studentId || 'Нет данных',
             events.length
         ]);
 
@@ -387,13 +387,13 @@ const ExcelExporter = {
         // Данные мероприятий (центрированные, с границами)
         events.forEach(event => {
             const eventRow = worksheet.addRow([
-                event.title || '',
-                event.date || '',
-                event.time || '',
-                event.place || '',
-                event.organizer || '',
-                event.city || '',
-                event.responsiblePerson || ''
+                event.title || 'Нет данных',
+                event.date || 'Нет данных',
+                event.time || 'Нет данных',
+                event.place || 'Нет данных',
+                event.organizer || 'Нет данных',
+                event.city || 'Нет данных',
+                event.responsiblePerson || 'Нет данных'
             ]);
 
             // Стиль для данных мероприятий
@@ -418,8 +418,6 @@ const ExcelExporter = {
             { width: 20 }, // Город
             { width: 20 }  // Ответственный
         ];
-
-
 
         // Генерация и скачивание файла
         const fileName = `Студент_${student.lastName}_${student.firstName}.xlsx`;
@@ -469,10 +467,10 @@ const ExcelExporter = {
 
         // Данные преподавателя
         const teacherDataRow = worksheet.addRow([
-            teacher.lastName || '',
-            teacher.firstName || '',
-            teacher.middleName || '',
-            teacher.department?.name || '',
+            teacher.lastName || 'Нет данных',
+            teacher.firstName || 'Нет данных',
+            teacher.middleName || 'Нет данных',
+            teacher.department?.name || 'Нет данных',
             events.length
         ]);
 
@@ -521,13 +519,13 @@ const ExcelExporter = {
         // Данные мероприятий
         events.forEach(event => {
             const eventRow = worksheet.addRow([
-                event.title || '',
-                event.date || '',
-                event.time || '',
-                event.place || '',
-                event.organizer || '',
-                event.city || '',
-                event.responsiblePerson || ''
+                event.title || 'Нет данных',
+                event.date || 'Нет данных',
+                event.time || 'Нет данных',
+                event.place || 'Нет данных',
+                event.organizer || 'Нет данных',
+                event.city || 'Нет данных',
+                event.responsiblePerson || 'Нет данных'
             ]);
 
             // Стиль для данных мероприятий
@@ -562,8 +560,96 @@ const ExcelExporter = {
         link.download = fileName;
         link.click();
         URL.revokeObjectURL(link.href);
-    }
+    },
 
+    exportEvents: async (events, departments, directions, dateFilter, specialtyFilter, departmentFilter) => {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Мероприятия');
+
+        // Заголовок с информацией о фильтрах
+        const filterInfo = `Мероприятия`;
+        worksheet.addRow([filterInfo]);
+        worksheet.mergeCells('A1:H1');
+
+        // Стиль для заголовка фильтров
+        const filterRow = worksheet.getRow(1);
+        filterRow.eachCell((cell) => {
+            cell.font = { bold: true, size: 14, color: { argb: 'FFFFFFFF' } };
+            cell.alignment = { vertical: 'middle', horizontal: 'center' };
+            cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4472C4' } };
+        });
+
+        // Заголовки таблицы мероприятий
+        const eventHeaders = ['Название', 'Дата', 'Время', 'Место', 'Организатор', 'Город', 'Ответственный', 'Участники'];
+        worksheet.addRow(eventHeaders);
+
+        // Стиль для заголовков мероприятий
+        const eventHeaderRow = worksheet.getRow(2);
+        eventHeaderRow.eachCell((cell) => {
+            cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4472C4' } };
+            cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+            cell.alignment = { vertical: 'middle', horizontal: 'center' };
+            cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+            };
+        });
+
+        // Настройка ширины столбцов
+        worksheet.columns = [
+            { width: 35 }, // Название
+            { width: 15 }, // Дата
+            { width: 15 }, // Время
+            { width: 30 }, // Место
+            { width: 20 }, // Организатор
+            { width: 20 }, // Город
+            { width: 20 }, // Ответственный
+            { width: 40 }  // Участники
+        ];
+
+        // Добавляем данные мероприятий
+        events.forEach(event => {
+            // Форматируем участников
+            const participantsString = [
+                ...event.students.map(student => `${student.fullName} (Студент)`),
+                ...event.teachers.map(teacher => `${teacher.fullName} (Преподаватель)`)
+            ].join('\n') || 'Нет данных';
+
+            const eventRow = worksheet.addRow([
+                event.title || 'Нет данных',
+                event.date || 'Нет данных',
+                event.time || 'Нет данных',
+                event.place || 'Нет данных',
+                event.organizer || 'Нет данных',
+                event.city || 'Нет данных',
+                event.responsiblePerson || 'Нет данных',
+                participantsString
+            ]);
+
+            // Стиль для данных мероприятий
+            eventRow.eachCell((cell) => {
+                cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+                cell.border = {
+                    top: { style: 'thin' },
+                    left: { style: 'thin' },
+                    bottom: { style: 'thin' },
+                    right: { style: 'thin' }
+                };
+            });
+        });
+
+        // Генерация и скачивание файла
+        const fileName = `Мероприятия_${new Date().toLocaleDateString()}.xlsx`;
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
 };
 
 export default ExcelExporter;

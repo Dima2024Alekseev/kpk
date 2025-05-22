@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import logo_auth from "../../img/logo-auth.svg";
 import "./login.css";
 
@@ -8,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +48,6 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
 
       toast.success("Авторизация успешна!");
-
       setTimeout(() => navigate("/"), 1000);
 
     } catch (error) {
@@ -58,48 +59,56 @@ const Login = () => {
   };
 
   return (
-    <>
-      <main className="auth-main-container">
-        <div className="left-side-auth">
-          <div className="left-side-auth-logo-container">
-            <img src={logo_auth} alt="Логотип" />
-          </div>
+    <main className="auth-main-container">
+      <div className="left-side-auth">
+        <div className="left-side-auth-logo-container">
+          <img src={logo_auth} alt="Логотип" />
         </div>
-        <div className="right-side-auth">
-          <div className="right-side-auth-title">Авторизация</div>
-          <form className="auth-form-container" onSubmit={handleSubmit}>
-            <div className="auth-form-item">
-              <label className="right-side-auth-title-input">Логин</label>
+      </div>
+      <div className="right-side-auth">
+        <div className="right-side-auth-title">Авторизация</div>
+        <form className="auth-form-container" onSubmit={handleSubmit}>
+          <div className="auth-form-item">
+            <label className="right-side-auth-title-input">Логин</label>
+            <input
+              type="text"
+              className="right-side-auth-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              minLength={3}
+            />
+          </div>
+          <div className="auth-form-item">
+            <label className="right-side-auth-title-input">Пароль</label>
+            <div className="password-input-container">
               <input
-                type="text"
-                className="right-side-auth-input"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                minLength={3}
-              />
-            </div>
-            <div className="auth-form-item">
-              <label className="right-side-auth-title-input">Пароль</label>
-              <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="right-side-auth-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                className="password-toggle-button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
+              >
+                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </button>
             </div>
-            <button
-              className="right-side-auth-button"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? "Загрузка..." : "Авторизоваться"}
-            </button>
-          </form>
-        </div>
-      </main>
-    </>
+          </div>
+          <button
+            className="right-side-auth-button"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Загрузка..." : "Авторизоваться"}
+          </button>
+        </form>
+      </div>
+    </main>
   );
 };
 

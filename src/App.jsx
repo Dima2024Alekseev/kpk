@@ -7,7 +7,7 @@ import Home from "./Pages/Home/Home";
 import Calendar from "./Pages/Calendar/Сalendar";
 import Students from "./Pages/Students/Students";
 import Teachers from "./Pages/Teachers/Teachers";
-import Statistics from "./Pages/Statistics/statistics";
+import Statistics from "./Pages/Statistics/Statistics";
 import Login from "./Pages/Authorization/login";
 import ScrollToTop from "./Components/ScrollToTop";
 import ProtectedRoute from "./Components/ProtectedRoute";
