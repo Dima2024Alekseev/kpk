@@ -13,8 +13,8 @@ const ProtectedRoute = ({ children, isAdmin = false }) => {
 
   // Если требуется доступ только для администратора
   if (isAdmin && user?.role !== "admin") {
-    console.log("Not admin, redirecting to /home");
-    return <Navigate to="/home" />; // Перенаправление на главную страницу
+    console.log("Not admin, redirecting to /");
+    return <Navigate to="/" />; // Перенаправление на главную страницу
   }
 
   return children;

@@ -8,7 +8,6 @@ import Calendar from "./Pages/Calendar/Сalendar";
 import Students from "./Pages/Students/Students";
 import Teachers from "./Pages/Teachers/Teachers";
 import Statistics from "./Pages/Statistics/statistics";
-// import Settings from "./Pages/Settings/settings";
 import Login from "./Pages/Authorization/login";
 import ScrollToTop from "./Components/ScrollToTop";
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -38,7 +37,7 @@ const App = () => {
 
           {/* Защищенные маршруты */}
           <Route
-            path="/home"
+            path="/"
             element={
               <ProtectedRoute>
                 <Home />

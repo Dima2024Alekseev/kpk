@@ -23,7 +23,7 @@ const Header = () => {
             if (confirmLogout) {
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
-                navigate("/home"); // Перенаправляем на страницу /home
+                navigate("/");
                 window.location.reload(); // Обновляем страницу
             }
         } else {
@@ -40,7 +40,7 @@ const Header = () => {
                     </li>
                     <div className="nav-menu-items-container">
                         <li className="nav-menu-item">
-                            <Link to="/home" className={`link ${location.pathname === "/home" ? "active" : ""}`} title="Главную страницу">
+                            <Link to="/" className={`link ${location.pathname === "/" ? "active" : ""}`} title="Главную страницу">
                                 <img src={home} alt="Home" />
                             </Link>
                         </li>
