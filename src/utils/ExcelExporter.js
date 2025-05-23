@@ -649,7 +649,8 @@ const ExcelExporter = {
         link.download = fileName;
         link.click();
         URL.revokeObjectURL(link.href);
-    }
+    },
+
 };
 
 export default ExcelExporter;

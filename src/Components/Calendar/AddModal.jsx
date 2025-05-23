@@ -189,25 +189,18 @@ const AddModal = ({ isOpen, onClose, newEvent, onChange, onSave, eventImages }) 
 
                     <div className="form-group">
                         <label className="form-label">Изображение</label>
-                        <select
-                            className="form-input"
-                            value={newEvent.image}
-                            onChange={(e) => onChange({ ...newEvent, image: e.target.value })}
-                        >
-                            <option value="">Выберите изображение</option>
-                            {Object.keys(eventImages).map((imageName) => (
-                                <option key={imageName} value={imageName}>
-                                    {imageName}
-                                </option>
+                        <div className="image-selection">
+                            {Object.entries(eventImages).map(([imageName, imageSrc]) => (
+                                <div key={imageName} className="image-option">
+                                    <img
+                                        src={imageSrc}
+                                        alt={imageName}
+                                        className={`image-preview ${newEvent.image === imageName ? "selected" : ""}`}
+                                        onClick={() => onChange({ ...newEvent, image: imageName })}
+                                    />
+                                </div>
                             ))}
-                        </select>
-                        {newEvent.image && (
-                            <img
-                                src={eventImages[newEvent.image]}
-                                alt="Предпросмотр"
-                                className="image-preview"
-                            />
-                        )}
+                        </div>
                     </div>
 
                     <div className="form-group">

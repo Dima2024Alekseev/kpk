@@ -5,6 +5,7 @@ import Header from "../../Components/Header/Header";
 import Pagination from "../../Components/Pagination";
 import ExcelExporter from "../../utils/ExcelExporter";
 import { FaFileExcel } from 'react-icons/fa';
+import Modal from "../../Components/ModalStatistics/ModalStatistics";
 
 const Statistics = () => {
     const [events, setEvents] = useState([]);
@@ -15,6 +16,7 @@ const Statistics = () => {
     const [dateFilter, setDateFilter] = useState("");
     const [specialtyFilter, setSpecialtyFilter] = useState("");
     const [departmentFilter, setDepartmentFilter] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const eventsPerPage = 10;
 
     useEffect(() => {
@@ -111,19 +113,43 @@ const Statistics = () => {
         window.scrollTo({ top: 0 });
     };
 
-    const exportToExcel = async () => {
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const exportSelectedEvent = async (selectedEvent) => {
         try {
-            await ExcelExporter.exportEvents(
-                filteredEvents,
-                departments,
-                directions,
-                dateFilter,
-                specialtyFilter,
-                departmentFilter
-            );
+            if (selectedEvent === 'all') {
+                await ExcelExporter.exportEvents(
+                    filteredEvents,
+                    departments,
+                    directions,
+                    dateFilter,
+                    specialtyFilter,
+                    departmentFilter
+                );
+            } else {
+                const eventToExport = events.find(event => event._id === selectedEvent);
+                if (eventToExport) {
+                    await ExcelExporter.exportEvents(
+                        [eventToExport],
+                        departments,
+                        directions,
+                        dateFilter,
+                        specialtyFilter,
+                        departmentFilter
+                    );
+                }
+            }
         } catch (err) {
             console.error('Ошибка при экспорте в Excel:', err);
             alert('Не удалось выполнить экспорт');
+        } finally {
+            closeModal();
         }
     };
 
@@ -186,11 +212,10 @@ const Statistics = () => {
                                         ))}
                                     </select>
                                 </div>
-
                             </div>
                             <button
                                 className="export-btn"
-                                onClick={exportToExcel}
+                                onClick={openModal}
                                 disabled={filteredEvents.length === 0}
                                 title="Экспорт в Excel"
                             >
@@ -253,6 +278,12 @@ const Statistics = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onExport={exportSelectedEvent}
+                events={events}
+            />
         </>
     );
 };
